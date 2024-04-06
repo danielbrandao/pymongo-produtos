@@ -147,5 +147,44 @@ def get_pedidos():
         print(f"Erro: {e}")
         return "Erro ao listar pedidos.", 500
 
+@app.route("/pedido/<pedido_id>", methods=['DELETE'])
+def delete_pedido(pedido_id):
+    try:
+        if not ObjectId.is_valid(pedido_id):
+            return "ID de pedido inválido.", 400
+
+        resultado = pedidos_collection.delete_one({"_id": ObjectId(pedido_id)})
+
+        # Verifica se o pedido foi encontrado e excluído
+        if resultado.deleted_count == 1:
+            return (f"Pedido com ID {pedido_id} excluído com sucesso."), 200
+        else:
+            return (f"Pedido com ID {pedido_id} não encontrado."), 404
+    except Exception as e:
+        return f"Erro ao excluir pedido: {e}", 500
+
+@app.route("/pedido/<pedido_id>", methods=["PUT"])
+def update_pedido(pedido_id):
+    try:
+        if not ObjectId.is_valid(pedido_id):
+            return "ID de pedido inválido.", 400
+
+        # Obtém os novos dados do pedido do corpo da solicitação
+        dados = request.get_json()
+
+        # Atualiza o pedido no banco de dados
+        resultado = pedidos_collection.update_one(
+            {"_id": ObjectId(pedido_id)},
+            {"$set": dados}  # Use $set para atualizar apenas os campos fornecidos
+        )
+
+        # Verifica se o pedido foi encontrado e atualizado
+        if resultado.modified_count == 1:
+            return f"Pedido com ID {pedido_id} atualizado com sucesso.", 200
+        else:
+            return f"Pedido com ID {pedido_id} não encontrado ou nenhum dado foi modificado.", 404
+    except Exception as e:
+        return f"Erro ao atualizar pedido: {e}", 500
+
 if __name__ == "__main__":
     app.run(debug=True)
