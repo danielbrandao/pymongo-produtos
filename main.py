@@ -58,7 +58,7 @@ class Pedido():
         }
 @app.route("/", methods=['GET'])
 def index():
-    return '<h1>Olá, mundo.</h1>'
+    return render_template("index.html")
 
 @app.route("/produtos", methods=['GET'])
 def get_produtos():
