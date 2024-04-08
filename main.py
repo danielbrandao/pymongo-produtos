@@ -1,3 +1,5 @@
+from bson import ObjectId
+
 from config import SQLALCHEMY_DATABASE_URI, mongodb, pedidos_collection
 from flask import Flask, jsonify, request
 from sqlalchemy import Integer, String, Float, Date
