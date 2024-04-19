@@ -1,6 +1,7 @@
 # Bem-vindo a API de Produtos. Um CRUD de Produtos, Clientes e Pedidos
 Este projeto foi desenvolvido ao longo das aulas de Modelagem de Banco de dados da Pós em ## Desenvolvimento Web Full Stack da UNIPÊ ##
 O projeto lida com uma persistência poliglota, com dados em um banco relacional e um não relacional.
+OBS: O código está na branch MASTER.
 
 1. Relacional MySQL com as tabelas:
    - Produtos (que mantém): ID_produto, Nome, Descricao, Categoria e Preço
